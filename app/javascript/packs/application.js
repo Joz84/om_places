@@ -31,4 +31,51 @@ import "bootstrap";
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+
+  const graph = document.querySelector("#graph");
+
+  const data = JSON.parse(graph.dataset.values);
+
+  var Highcharts = require('highcharts');
+  // Load module after Highcharts is loaded
+  require('highcharts/modules/exporting')(Highcharts);
+  // Create the chart
+
+
+  Highcharts.chart('graph', {
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: 'Monthly Average Temperature'
+    },
+    subtitle: {
+      text: 'Source: WorldClimate.com'
+    },
+    xAxis: {
+      categories: data[0]
+    },
+    yAxis: {
+      title: {
+        text: 'Temperature (°C)'
+      }
+    },
+    plotOptions: {
+      line: {
+        dataLabels: {
+          enabled: true
+        },
+        enableMouseTracking: false
+      }
+    },
+    series: [{
+      name: 'Tokyo',
+      data: data[1]
+    }]
+  });
+
+
+
+
+
 });
